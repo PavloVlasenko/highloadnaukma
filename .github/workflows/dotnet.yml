@@ -22,9 +22,9 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Add Secret ServiceBus
-      run: dotnet user-secrets set "ServiceBus" "${{secrets.ServiceBus}}"
+      run: dotnet user-secrets set "ServiceBus" "${{secrets.ServiceBus}}" --project "/home/runner/work/highloadnaukma/highloadnaukma/Highload.Tests"
     - name: Add Secret Database
-      run: dotnet user-secrets set "Database" "${{secrets.Database}}"
+      run: dotnet user-secrets set "Database" "${{secrets.Database}}" --project "/home/runner/work/highloadnaukma/highloadnaukma/Highload.Tests"
     - name: Build
       run: dotnet build --no-restore
     - name: Test
