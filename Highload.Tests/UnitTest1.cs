@@ -7,8 +7,10 @@ using HighLoad.Controllers;
 using HighLoad.Entities;
 using HighLoad.EventHandlers;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
+using DbContext = HighLoad.DbContext;
 
 namespace Highload.Tests
 {
@@ -22,7 +24,7 @@ namespace Highload.Tests
             var services = Program.CreateHostBuilder<Highload.Tests.Tests>(Array.Empty<string>()).Build().Services;
             var context = services.GetService<DbContext>();
             context!.Database.EnsureCreated();
-            context!.Books.RemoveRange(context.Books);
+            context!.Database.ExecuteSqlRaw("truncate table [dbo].[Books]");
             Services = services;
         }
 
