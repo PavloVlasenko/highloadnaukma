@@ -38,6 +38,6 @@ namespace HighLoad.EventHandlers
             }
         }
 
-        protected abstract Task Handle(T message, CancellationToken cancellationToken);
+        public abstract Task Handle(T message, CancellationToken cancellationToken);
     }
 }

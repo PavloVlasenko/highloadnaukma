@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HighLoad", "HighLoad\HighLoad.csproj", "{DE8152CA-FEC5-4D56-BF45-844B00368B0C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Highload.Tests", "Highload.Tests\Highload.Tests.csproj", "{C32B7B9F-B9D0-4758-8C9B-98C12A694A85}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{DE8152CA-FEC5-4D56-BF45-844B00368B0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DE8152CA-FEC5-4D56-BF45-844B00368B0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DE8152CA-FEC5-4D56-BF45-844B00368B0C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C32B7B9F-B9D0-4758-8C9B-98C12A694A85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C32B7B9F-B9D0-4758-8C9B-98C12A694A85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C32B7B9F-B9D0-4758-8C9B-98C12A694A85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C32B7B9F-B9D0-4758-8C9B-98C12A694A85}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -23,7 +23,7 @@ namespace HighLoad.EventHandlers
         }
 
         protected override string QueueName => "db";
-        protected override async Task Handle(Book message, CancellationToken cancellationToken)
+        public override async Task Handle(Book message, CancellationToken cancellationToken)
         {
             using (var dbContext = new DbContext(_configuration.GetConnectionString("Database")))
             {
@@ -48,7 +48,7 @@ namespace HighLoad.EventHandlers
         }
 
         protected override string QueueName => "redis";
-        protected override async Task Handle(Book message, CancellationToken cancellationToken)
+        public override async Task Handle(Book message, CancellationToken cancellationToken)
         {
             await _redisService.AddAsync(message.Id.ToString(), message);
         }
