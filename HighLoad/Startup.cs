@@ -33,8 +33,8 @@ namespace HighLoad
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var multiplexer = ConnectionMultiplexer.Connect(Configuration.GetConnectionString("Redis"));
-            services.AddSingleton<IConnectionMultiplexer>(multiplexer);
+            //var multiplexer = ConnectionMultiplexer.Connect(Configuration.GetConnectionString("Redis"));
+            //services.AddSingleton<IConnectionMultiplexer>(multiplexer);
             services.AddSingleton<IMemoryService, MemoryService>();
             services.AddControllers();
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "HighLoad", Version = "v1"}); });
@@ -44,8 +44,8 @@ namespace HighLoad
             services.AddSingleton<DbSender>();
             services.AddSingleton<RedisSender>();
 
-            services.AddDbContext<DbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Database")));
-            services.AddSingleton<ServiceBusClient>(_ => new (Configuration.GetConnectionString("ServiceBusConnectionString")));
+            services.AddDbContext<DbContext>(options => options.UseSqlServer(Configuration["Database"]));
+            services.AddSingleton<ServiceBusClient>(_ => new (Configuration["ServiceBus"]));
             services.AddMemoryCache();
         }
 

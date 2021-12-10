@@ -28,7 +28,7 @@ namespace HighLoad.Services
 
         public ServiceBusSender(IConfiguration configuration, string queueName)
         {
-            var connectionString = configuration.GetConnectionString("ServiceBusConnectionString");
+            var connectionString = configuration["ServiceBus"];
             _client = new ServiceBusClient(connectionString);
             _clientSender = _client.CreateSender(queueName);
         }

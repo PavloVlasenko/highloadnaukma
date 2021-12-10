@@ -25,7 +25,7 @@ namespace HighLoad.EventHandlers
         protected override string QueueName => "db";
         public override async Task Handle(Book message, CancellationToken cancellationToken)
         {
-            using (var dbContext = new DbContext(_configuration.GetConnectionString("Database")))
+            using (var dbContext = new DbContext(_configuration["Database"]))
             {
                 var possibleBook = await dbContext.Books.AsNoTracking().FirstOrDefaultAsync(t => t.Id ==  message.Id, cancellationToken);
                 if (possibleBook is null)
