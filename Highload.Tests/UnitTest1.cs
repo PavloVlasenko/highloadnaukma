@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Threading;
 using HighLoad;
+using HighLoad.ApiModels;
 using HighLoad.Controllers;
 using HighLoad.Entities;
 using HighLoad.EventHandlers;
@@ -18,10 +19,10 @@ namespace Highload.Tests
         public void Setup()
         {
 
-            var services = Program.CreateHostBuilder(Array.Empty<string>()).Build().Services;
+            var services = Program.CreateHostBuilder<Highload.Tests.Tests>(Array.Empty<string>()).Build().Services;
             var context = services.GetService<DbContext>();
-            context!.Database.EnsureDeleted();
             context!.Database.EnsureCreated();
+            context!.Books.RemoveRange(context.Books);
             Services = services;
         }
 
@@ -29,9 +30,7 @@ namespace Highload.Tests
         public void BookDbEventHandler_NewBook_ShouldBeSavedInDb()
         {
             var handler = Services.GetService<BookDbEventHandler>();
-            var message = new Book()
-            {
-            };
+            var message = GetBook();
             handler!.Handle(message, CancellationToken.None).GetAwaiter().GetResult();
             var context = Services.GetService<DbContext>();
             var actual = context!.Books.Single();
@@ -46,9 +45,10 @@ namespace Highload.Tests
             context!.Books.Add(book);
 
             var controller = Services.GetService<BookController>();
-            var actual = controller!.Get(book.Id.ToString()).GetAwaiter().GetResult().Value;
+            var actualResult = controller!.Get(book.Id.ToString()).GetAwaiter().GetResult().Result as OkObjectResult;
+            var actual = actualResult!.Value as BookView;
             
-            Assert.AreEqual(book.Author, actual.Author);
+            Assert.AreEqual(book.Author, actual!.Author);
             Assert.AreEqual(book.Date, actual.Date);
             Assert.AreEqual(book.Id.ToString(), actual.Id);
             Assert.AreEqual(book.Name, actual.Name);

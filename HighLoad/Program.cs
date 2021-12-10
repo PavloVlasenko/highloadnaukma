@@ -13,11 +13,18 @@ namespace HighLoad
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            CreateHostBuilder<Program>(args).Build().Run();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
+        public static IHostBuilder CreateHostBuilder<T>(string[] args) where T : class =>
             Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.ConfigureAppConfiguration(builder =>
+                    {
+                        builder.AddUserSecrets<T>();
+                    });
+                    webBuilder.UseStartup<Startup>();
+                });
     }
 }

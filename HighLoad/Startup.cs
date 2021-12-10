@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Azure.Messaging.ServiceBus;
+using HighLoad.Controllers;
 using HighLoad.Entities;
 using HighLoad.EventHandlers;
 using HighLoad.Services;
@@ -39,11 +40,14 @@ namespace HighLoad
             services.AddControllers();
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "HighLoad", Version = "v1"}); });
             services.AddHostedService<BookDbEventHandler>();
+            services.AddSingleton<BookDbEventHandler>();
             services.AddHostedService<BookRedisEventHandler>();
+            services.AddScoped<BookController>();
 
             services.AddSingleton<DbSender>();
             services.AddSingleton<RedisSender>();
 
+            var db = Configuration["Database"];
             services.AddDbContext<DbContext>(options => options.UseSqlServer(Configuration["Database"]));
             services.AddSingleton<ServiceBusClient>(_ => new (Configuration["ServiceBus"]));
             services.AddMemoryCache();
