@@ -21,6 +21,10 @@ jobs:
         ServiceBus:  ${{ secrets.ServiceBus }}
     - name: Restore dependencies
       run: dotnet restore
+    - name: Add Secret ServiceBus
+      run: dotnet user-secrets set "ServiceBus" "${{secrets.ServiceBus}}"
+    - name: Add Secret Database
+      run: dotnet user-secrets set "Database" "${{secrets.Database}}"
     - name: Build
       run: dotnet build --no-restore
     - name: Test
