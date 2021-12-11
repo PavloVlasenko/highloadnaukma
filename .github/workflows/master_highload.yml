@@ -4,9 +4,10 @@
 name: Build and deploy ASP.Net Core app to Azure Web App - highload
 
 on:
-  push:
-    branches:
-      - master
+  workflow_run:
+    workflows: [".NET"]
+    types:
+      - completed
   workflow_dispatch:
 
 jobs:
