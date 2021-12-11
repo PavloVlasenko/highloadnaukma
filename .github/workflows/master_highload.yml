@@ -22,6 +22,10 @@ jobs:
           dotnet-version: '5.0.x'
           include-prerelease: true
 
+      - name: Add ServiceBus Secret
+        run: dotnet user-secrets set "ServiceBus" "${{secrets.ServiceBus}}" --project "D:\a\highloadnaukma\highloadnaukma\HighLoad"
+      - name: Add Database Secret
+        run: dotnet user-secrets set "Database" "${{secrets.Database}}" --project "D:\a\highloadnaukma\highloadnaukma\HighLoad"
       - name: Build with dotnet
         run: dotnet build --configuration Release
 
